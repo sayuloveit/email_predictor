@@ -10,8 +10,16 @@ class Predictor
   end
 
   def predict(name, domain)
-    return 'no prediction was possible for this domain' unless evaluator.patterns[domain]
-    evaluator.patterns[domain].map { |pattern| email_generate(name, domain, pattern)}
+    #guard clause
+    #confident ruby book
+    return 'no prediction was possible for this domain' unless have_patterns?
+    # null object pattern - no nil return values
+    # aloha ruby conf 2012 - ben orenstein, refactoring
+    evaluator.match_patterns(domain).map { |pattern| email_generate(name, domain, pattern)}
+  end
+
+  def have_patterns?
+    !evaluator.match_patterns(domain).empty?
   end
 
 end

@@ -6,6 +6,7 @@ require_relative 'lib/predictor'
 
 analyser = Analyser.new(EMAIL_PATTERNS)
 evaluator = Evaluator.new(EXAMPLES, analyser)
+evaluator.match_patterns
 predictor = Predictor.new(evaluator)
 
 PREDICT.each_with_index do |(name, domain), index|
